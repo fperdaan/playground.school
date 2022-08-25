@@ -6,6 +6,8 @@ namespace School.DAL;
 public partial class SchoolStorageContext : DbContext
 {
 	public virtual DbSet<Student>? Student { get; set; }
+	public virtual DbSet<Teacher>? Teacher { get; set; }
+	public virtual DbSet<Person>? Persons { get; set; }
 
 	public SchoolStorageContext( DbContextOptions<SchoolStorageContext> options ) : base( options ) {}
 
@@ -22,6 +24,14 @@ public partial class SchoolStorageContext : DbContext
 				FirstName = "John",
 				SirName = "Doe"
 			} 
+		);
+
+		modelBuilder.Entity<Teacher>().HasData( 
+			new Teacher{
+				ID = 3,
+				FirstName = "Gemma",
+				SirName = "Tatton"
+			}
 		);
 	}
 }

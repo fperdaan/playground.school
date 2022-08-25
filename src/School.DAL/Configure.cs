@@ -9,7 +9,9 @@ static public class Configure
 	public static void ConfigureServices( IServiceCollection services  )
 	{
 		services
-			.AddScoped<IRepository<Student>, AtomicRepository<Student>>();
+			.AddScoped<IRepository<Student>, AtomicRepository<Student>>()
+			.AddScoped<IRepository<Teacher>, AtomicRepository<Teacher>>()
+			.AddScoped<IRepository<Person>, AtomicRepository<Person>>();
 
 		// services
 		// 		.AddDbContext<HPlusSportsContext>(options => options.UseSqlite(connectionString));

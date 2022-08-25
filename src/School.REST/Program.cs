@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure default services
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+					.AddNewtonsoftJson();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -35,8 +38,6 @@ builder.Services.ConfigureOptions<SwaggerOptions>();
 builder.Services.AddSwaggerGen( c => {
 	c.DocumentFilter<SwaggerFilter>(); 
 });
-
-//Configuration.GetConnectionString("DefaultConnection");
 
 // Set database context
 builder.Services

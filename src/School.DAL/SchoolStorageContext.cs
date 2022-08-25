@@ -16,13 +16,15 @@ public partial class SchoolStorageContext : DbContext
 		modelBuilder.Entity<Student>().HasData( 
 			new Student{
 				ID = 1,
-				FirstName = "Jane",
-				SirName = "Doe"
+				FirstName = "Wilson",
+				SirName = "Lyn",
+				EnrollmentDate = DateTime.Parse("2020-09-01")
 			},
 			new Student{
 				ID = 2,
-				FirstName = "John",
-				SirName = "Doe"
+				FirstName = "Eli",
+				SirName = "Hamilton",
+				EnrollmentDate = DateTime.Parse("2021-09-01")
 			} 
 		);
 
@@ -30,7 +32,8 @@ public partial class SchoolStorageContext : DbContext
 			new Teacher{
 				ID = 3,
 				FirstName = "Gemma",
-				SirName = "Tatton"
+				SirName = "Tatton",
+				Topics = Topic.Math
 			}
 		);
 	}

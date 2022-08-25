@@ -2,8 +2,8 @@
 
 // See https://aka.ms/new-console-template for more information
 
-var building1 = new Building{ Name= "Building 1" };
-var building2 = new Building{ Name= "Building 2" };
+var building1 = new Building( name: "Building 1" );
+var building2 = new Building( name: "Building 2" );
 
 IList<IClassroom> rooms = new List<IClassroom>();
 

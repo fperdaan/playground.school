@@ -15,21 +15,26 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
 	}
 
     [HttpGet, Route("{id}")]
-    public ActionResult<Person> Get( int id )
+    public Response<T> Get( int id )
     {	
 		T? result = this._repo.GetById( id ).Result;
 
 		if( result != null )
-			return Ok( result );
+			return new Response<T>( result );
 
 		else 
-			return NotFound();
+			return new Response<T>( "Unable to find the object with the specified id" );
     }
 
     [HttpGet, Route("")]
-    public Task<IEnumerable<T>> List()
+    public PagedResponse<T> List( [FromQuery] PaginationFilter pagination )
     {
-		return this._repo.GetAll();
+		return PagedResponse<T>.ToPagedResponse(
+			source: this._repo.FindAll().OrderBy( p => p.ID ),
+			request: Request, 
+			startAt: pagination.StartAt, 
+			maxResults: pagination.MaxResults 
+		);
     }
 
 }

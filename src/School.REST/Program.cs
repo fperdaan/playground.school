@@ -1,9 +1,11 @@
+global using School.REST.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 using Microsoft.EntityFrameworkCore;
-
+using Newtonsoft.Json;
 using School.REST.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure default services
 
 builder.Services.AddControllers()
-					.AddNewtonsoftJson();
+					.AddNewtonsoftJson( o => {
+						o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+					});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -81,3 +85,24 @@ app.MapControllers();
 app.Run();
 
 # endregion
+
+
+// Fluent sample
+/*
+Campus
+	.Construction
+		.AddBuilding("Building 3")
+			.AddRoom("Room 102")
+				.TeachTopics( Topic.Math )
+				.TeachTopcis( Topic.Language )
+			.Apply()
+			.AddRoom("Room 103")
+				.TeachTopics( Topic.Science )
+			.Apply()
+		.ModifyBuilding("Building 2")
+			.RemoveRoom("Room 101")
+			.ModifyRoom("Room 102")
+				.TeachTopic( Topic.Math )
+			.Apply()
+		.Construct()
+		*/

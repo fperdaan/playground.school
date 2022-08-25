@@ -11,7 +11,7 @@ public class StudentController : AtomicController<Student>
 	public StudentController( IRepository<Student> repo  ) : base( repo ) {}
 
     [HttpPost, Route("")]
-    public Student Add( Student data )
+    public Response<Student> Add( Student data )
     {
 		var person = new Student{
 			FirstName = data.FirstName,
@@ -21,6 +21,6 @@ public class StudentController : AtomicController<Student>
 
 		this._repo.Add( person );
 
-		return person;
+		return new Response<Student>(person);
     }
 }

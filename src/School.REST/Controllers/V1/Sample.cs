@@ -21,19 +21,19 @@ public class Sample : ControllerBase
 	}
 	
     [HttpGet, Route("{id}")]
-    public ActionResult<Person> Get( int id )
+    public Response<Person> Get( int id )
     {	
 		Person? result = this._repo.GetById( id ).Result;
 
 		if( result != null )
-			return Ok( result );
+			return new Response<Person>( result );
 
 		else 
-			return NotFound();
+			return new Response<Person>( "Unable to find the object with the specified id" );
     }
 
     [HttpGet, Route("")]
-    public PagedList<Person> List( [FromQuery] PaginationFilter pagination )
+    public PagedResponse<Person> List( [FromQuery] PaginationFilter pagination )
     {
 
 			// var builder = new QueryMutator( Request.GetDisplayUrl() );
@@ -46,8 +46,7 @@ public class Sample : ControllerBase
 		//	Console.WriteLine( builder );
 		//	Console.WriteLine( Request.GetDisplayUrl() );
 
-
-		return PagedList<Person>.ToPagedList( 
+		return PagedResponse<Person>.ToPagedResponse( 
 			source: this._repo.FindAll().OrderBy( p => p.ID ),
 			request: Request, 
 			startAt: pagination.StartAt, 

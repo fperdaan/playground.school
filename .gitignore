@@ -1,3 +1,5 @@
+*.db
+Migrations
 bin
 obj
 .vs

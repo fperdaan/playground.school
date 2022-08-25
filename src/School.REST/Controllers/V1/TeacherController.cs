@@ -15,7 +15,7 @@ public class TeacherController : AtomicController<Teacher>
     {
 		var person = new Teacher{
 			FirstName = data.FirstName,
-			SirName = data.SirName,
+			LastName = data.LastName,
 			Topics = data.Topics
 		};
 

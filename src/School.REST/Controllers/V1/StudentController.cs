@@ -15,7 +15,7 @@ public class StudentController : AtomicController<Student>
     {
 		var person = new Student{
 			FirstName = data.FirstName,
-			SirName = data.SirName,
+			LastName = data.LastName,
 			EnrollmentDate = data.EnrollmentDate
 		};
 

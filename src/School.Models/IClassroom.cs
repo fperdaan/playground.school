@@ -4,6 +4,6 @@ public interface IClassroom : IStorable
 {
 	public int RoomSize { get; }
 	public string Name { get; }
-	public string Location { get; }
+	public ILocation Location { get; }
 	public Topic Topics { get; }
 }

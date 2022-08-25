@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using School.Models;
 using School.DAL;
+using School.REST.Models;
+using Microsoft.AspNetCore.Http.Extensions;
+
+using System.Web;
 
 namespace School.REST.Controllers;
 
@@ -29,9 +33,26 @@ public class Sample : ControllerBase
     }
 
     [HttpGet, Route("")]
-    public Task<IEnumerable<Person>> List()
+    public PagedList<Person> List( [FromQuery] PaginationFilter pagination )
     {
-		return this._repo.GetAll();
+
+			// var builder = new QueryMutator( Request.GetDisplayUrl() );
+
+			// builder.Add( "test", "value1" )
+			// 	   .Replace( "pageNumber", "10" )
+			// 	   .Remove( "foo" );
+
+
+		//	Console.WriteLine( builder );
+		//	Console.WriteLine( Request.GetDisplayUrl() );
+
+
+		return PagedList<Person>.ToPagedList( 
+			source: this._repo.FindAll().OrderBy( p => p.ID ),
+			request: Request, 
+			startAt: pagination.StartAt, 
+			maxResults: pagination.MaxResults 
+		);
     }
 
 }

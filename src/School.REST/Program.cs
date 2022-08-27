@@ -7,6 +7,8 @@ using System.Text.Json.Serialization;
 //using Newtonsoft.Json;
 
 using School.REST.Configuration;
+using School.Models;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +21,7 @@ builder.Services.AddControllers()
 					.AddJsonOptions( options => {
 						options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 						options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-						options.JsonSerializerOptions.Converters.Add( new PersonSerializer() );
+						options.JsonSerializerOptions.Converters.Add( new PolymorphicSerializer<Person>() );
 					});
 /*
 					.AddNewtonsoftJson( o => {

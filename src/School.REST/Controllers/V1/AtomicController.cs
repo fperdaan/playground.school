@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 using School.DAL;
 using School.Models;
 
@@ -36,5 +36,4 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
 			maxResults: pagination.MaxResults 
 		);
     }
-
 }

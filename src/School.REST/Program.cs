@@ -1,10 +1,11 @@
 global using School.REST.Models;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System.Text.Json.Serialization;
+//using Newtonsoft.Json;
 
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using School.REST.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,12 +16,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure default services
 
 builder.Services.AddControllers()
+					.AddJsonOptions( options => {
+						options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+						options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+						options.JsonSerializerOptions.Converters.Add( new PersonSerializer() );
+					});
+/*
 					.AddNewtonsoftJson( o => {
 						o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 						o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 						//o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
 						//o.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-					});
+					});*/	
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -86,10 +93,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// School.BL.Fluent.Campus
-// 	.Construction
-// 		.AddBuilding("Building 3");
 
 app.Run();
 

@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 
 using School.Models;
-using School.DAL;
 using School.BL.Fluent;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace School.REST.Controllers;
 
@@ -19,8 +18,8 @@ public class Sample : ControllerBase
 	}
 
     [HttpGet, Route("")]
-    public Response<ILocation> Playground()
-    {
+   	public Response<ILocation> Playground()
+	{
 		var result = this._building
 						.SetName( "Building 1" )
 						/*.AddRoom( "test" )
@@ -31,4 +30,15 @@ public class Sample : ControllerBase
 		return new Response<ILocation>(result);
     }
 
+	[HttpGet, Route("async-test")]
+    public async IAsyncEnumerable<int> Test1()
+    {
+		for (int counter = 0; counter < 10; counter++)
+		{
+			await Task.Delay(700);
+			yield return counter;
+		}
+    }
 }
+
+

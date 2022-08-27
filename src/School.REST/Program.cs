@@ -8,7 +8,6 @@ using System.Text.Json.Serialization;
 
 using School.REST.Configuration;
 using School.Models;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -100,8 +99,6 @@ app.Run();
 
 
 # endregion
-
-
 
 
 // Fluent sample

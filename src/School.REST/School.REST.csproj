@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\School.Models\School.Models.csproj" />
     <ProjectReference Include="..\School.DAL\School.DAL.csproj" />
+    <ProjectReference Include="..\School.BL\School.BL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
 	}
 
     [HttpGet, Route("{id}")]
-    public Response<T> Get( int id )
+    public virtual Response<T> Get( int id )
     {	
 		T? result = this._repo.GetById( id ).Result;
 
@@ -27,7 +27,7 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
     }
 
     [HttpGet, Route("")]
-    public PagedResponse<T> List( [FromQuery] PaginationFilter pagination )
+    public virtual PagedResponse<T> List( [FromQuery] PaginationFilter pagination )
     {
 		return PagedResponse<T>.ToPagedResponse(
 			source: this._repo.FindAll().OrderBy( p => p.ID ),

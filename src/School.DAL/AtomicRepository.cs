@@ -42,7 +42,7 @@ public partial class AtomicRepository<T> : IRepository<T> where T : StorableEnti
 
 	public IQueryable<T> FindAll()
 	{
-		return _context.Set<T>();
+		return _context.Set<T>().AsNoTracking();
 	}
 
 	public virtual async Task<IEnumerable<T>> Get<T2>( Expression<Func<T, bool>> predicate )

@@ -42,10 +42,9 @@ public class QueryMutator
 		var uri = this._uri.ToString().Split('?', 2)[0];
 		var query = this._query.ToString();
 
-		if( query != "" ) 
-			return uri + "?" + query + this._uri.Fragment;
-
-		else 
+		if( string.IsNullOrWhiteSpace( query ) ) 
 			return uri + this._uri.Fragment;
+		else 
+			return uri + "?" + query + this._uri.Fragment;
 	}
 }

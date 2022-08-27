@@ -2,7 +2,6 @@ global using School.REST.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -18,6 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
 					.AddNewtonsoftJson( o => {
 						o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+						o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+						//o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+						//o.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
 					});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -56,6 +58,8 @@ builder.Services
 
 // Configure sub services
 School.DAL.Configure.ConfigureServices( builder.Services );
+School.BL.Configure.ConfigureServices( builder.Services );
+
 
 # endregion
 
@@ -82,9 +86,17 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// School.BL.Fluent.Campus
+// 	.Construction
+// 		.AddBuilding("Building 3");
+
 app.Run();
 
+
 # endregion
+
+
 
 
 // Fluent sample

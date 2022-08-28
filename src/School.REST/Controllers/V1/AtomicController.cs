@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+
 using School.DAL;
 using School.Models;
 
@@ -23,7 +24,7 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
 			return new Response<T>( result );
 
 		else 
-			return new Response<T>( "Unable to find the object with the specified id" );
+			return new ErrorResponse<T>( "id", "Unable to find the object with the specified id", HttpStatusCode.NotFound );
     }
 
     [HttpGet, Route("")]

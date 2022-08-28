@@ -39,7 +39,7 @@ public class Sample : ControllerBase
 			yield return counter;
 		}
     }
-	
+
 	[HttpGet, Route("async-test2")]
     public Response<IAsyncEnumerable<int>> Test2()
     {

@@ -1,24 +1,37 @@
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace School.REST.Models;
 
-public class Response<T>
+public class Response<T> : IConvertToActionResult
 {
 	public HttpStatusCode Code { get; set; }
 	public T? Data { get; set; }
-	public string[]? Errors { get; set; }
 
-	public Response( T data )
+	public Response()
 	{
 		this.Code = HttpStatusCode.OK;
-		this.Data = data;
 	}
 
-	public Response( string error ) : this( new string[]{ error } ){ }
-
-	public Response( string[] errors, HttpStatusCode code = HttpStatusCode.BadRequest )
+	public Response( T data ) : this()
 	{
-		this.Code = code;
-		this.Errors = errors;
+		this.Data = data;
+	}
+	
+	// public virtual async Task ExecuteResultAsync( ActionContext context )
+	// {
+	// 	var result = new ObjectResult( this ) { 
+	// 		StatusCode = this.Code == HttpStatusCode.NotFound ? 200 : (int)this.Code 
+	// 	};
+
+    //     await result.ExecuteResultAsync( context );
+	// }
+
+	public IActionResult Convert()
+	{
+		return new ObjectResult( this ) { 
+			StatusCode = this.Code == HttpStatusCode.NotFound ? 200 : (int)this.Code 
+		};
 	}
 }

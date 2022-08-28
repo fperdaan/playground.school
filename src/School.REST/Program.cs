@@ -17,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure default services
 
 builder.Services.AddControllers()
-					.AddJsonOptions( options => {
+					.AddJsonOptions( options => 
+					{
 						options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 						options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 						options.JsonSerializerOptions.Converters.Add( new PolymorphicSerializer<Person>() );
@@ -37,22 +38,29 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRouting( options => options.LowercaseUrls = true );
 
 builder.Services.AddApiVersioning();
-builder.Services.AddApiVersioning(options =>
+builder.Services.AddApiVersioning( options =>
 {
 	options.DefaultApiVersion = new ApiVersion( 1, 0 );
 	options.AssumeDefaultVersionWhenUnspecified = true;
 	options.ReportApiVersions = true;
 });
 
-builder.Services.AddVersionedApiExplorer(setup =>
+builder.Services.AddVersionedApiExplorer( setup =>
 {
 	setup.GroupNameFormat = "'v'VVV";
 	setup.SubstituteApiVersionInUrl = true;
 });
 
 builder.Services.ConfigureOptions<SwaggerOptions>();
-builder.Services.AddSwaggerGen( c => {
+builder.Services.AddSwaggerGen( c => 
+{
 	c.DocumentFilter<SwaggerFilter>(); 
+});
+
+// Overload default error response with our model
+builder.Services.Configure<ApiBehaviorOptions>( options => 
+{
+    options.InvalidModelStateResponseFactory = context => new ErrorResponse<bool>( new ValidationProblemDetails( context.ModelState ) ).Convert();
 });
 
 // Set database context

@@ -8,6 +8,8 @@ using System.Text.Json.Serialization;
 
 using School.REST.Configuration;
 using School.Models;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Any;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +59,15 @@ builder.Services.ConfigureOptions<SwaggerOptions>();
 builder.Services.AddSwaggerGen( c => 
 {
 	c.DocumentFilter<SwaggerFilter>(); 
+
+	c.MapType<DateOnly>(() => new OpenApiSchema { 
+		Type = "string",
+		Pattern = DateOnlySerializer.DATE_FORMAT,
+		Example = new OpenApiString( DateOnly.FromDateTime( DateTime.Now ).ToString( DateOnlySerializer.DATE_FORMAT ) )
+	});
 });
+
+//var now = DateTime.Now.ToString( DateOnlySerializer.DATE_FORMAT );
 
 // Overload default error response with our model
 builder.Services.Configure<ApiBehaviorOptions>( options => 

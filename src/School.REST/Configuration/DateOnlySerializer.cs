@@ -5,7 +5,7 @@ namespace School.REST.Configuration;
 
 public class DateOnlySerializer : JsonConverter<DateOnly>
 {
-    const string DATE_FORMAT = "yyyy-MM-dd";
+    public const string DATE_FORMAT = "yyyy-MM-dd";
 
 	public override DateOnly Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options ) =>
 		DateOnly.ParseExact( reader.GetString()!, DATE_FORMAT );

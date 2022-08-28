@@ -30,7 +30,7 @@ public class Sample : ControllerBase
 		return new Response<ILocation>(result);
     }
 
-	[HttpGet, Route("async-test")]
+	[HttpGet, Route("async-test1")]
     public async IAsyncEnumerable<int> Test1()
     {
 		for (int counter = 0; counter < 10; counter++)
@@ -39,6 +39,14 @@ public class Sample : ControllerBase
 			yield return counter;
 		}
     }
+	
+	[HttpGet, Route("async-test2")]
+    public Response<IAsyncEnumerable<int>> Test2()
+    {
+		return new Response<IAsyncEnumerable<int>>(Test1());
+    }
+
+	
 }
 
 

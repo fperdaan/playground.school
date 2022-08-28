@@ -15,9 +15,9 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
 	}
 
     [HttpGet, Route("{id}")]
-    public virtual Response<T> Get( int id )
+    public virtual async Task<Response<T>> Get( int id )
     {	
-		T? result = this._repo.GetById( id ).Result;
+		T? result = await this._repo.GetById( id );
 
 		if( result != null )
 			return new Response<T>( result );

@@ -24,6 +24,9 @@ public class QueryMutator
 
 		return this;
 	}
+	public QueryMutator Add( string name, int value ) => Add( name, value.ToString() );
+	public QueryMutator Add( string name, double value ) => Add( name, value.ToString() );
+	public QueryMutator Add( string name, float value ) => Add( name, value.ToString() );
 
 	public QueryMutator Remove( string name )
 	{
@@ -36,6 +39,10 @@ public class QueryMutator
 	{
 		return this.Remove( name ).Add( name, value );
 	}	
+
+	public QueryMutator Replace( string name, int value ) => Replace( name, value.ToString() );
+	public QueryMutator Replace( string name, double value ) => Replace( name, value.ToString() );
+	public QueryMutator Replace( string name, float value ) => Replace( name, value.ToString() );
 
 	public override string? ToString()
 	{	

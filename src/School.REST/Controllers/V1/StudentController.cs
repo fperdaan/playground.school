@@ -11,7 +11,7 @@ public class StudentController : AtomicController<Student>
 	public StudentController( IRepository<Student> repo  ) : base( repo ) {}
 
     [HttpPost, Route("")]
-    public Response<Student> Add( Student data )
+    public virtual Response<Student> Add( Student data )
     {
 		var person = new Student{
 			FirstName = data.FirstName,

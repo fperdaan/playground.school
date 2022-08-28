@@ -9,17 +9,10 @@ namespace School.REST.Controllers.V1;
 [Route("api/v{version:apiVersion}/[controller]"), Route("api/latest/[controller]")]
 public class Sample : ControllerBase
 {
-	private IFluentBuilding _building;
-
-	public Sample( IFluentBuilding building )
-	{
-		this._building = building;
-	}
-
     [HttpGet, Route("")]
-   	public virtual Response<ILocation> Playground()
+   	public virtual Response<ILocation> Playground( [FromServices] IFluentBuilding builder )
 	{
-		var result = this._building
+		var result = builder
 						.SetName( "Building 1" )
 						/*.AddRoom( "test" )
 							.SetName("Changed")

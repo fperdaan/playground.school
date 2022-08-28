@@ -21,7 +21,9 @@ builder.Services.AddControllers()
 					{
 						options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 						options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+						
 						options.JsonSerializerOptions.Converters.Add( new PolymorphicSerializer<Person>() );
+						options.JsonSerializerOptions.Converters.Add( new DateOnlySerializer() );
 					});
 /*
 					.AddNewtonsoftJson( o => {

@@ -2,5 +2,5 @@ namespace School.Models;
 
 public class Student : Person
 {	
-	public DateTime EnrollmentDate { get; set; } = DateTime.Now;
+	public DateOnly EnrollmentDate { get; set; } = DateOnly.FromDateTime( DateTime.Now );
 }

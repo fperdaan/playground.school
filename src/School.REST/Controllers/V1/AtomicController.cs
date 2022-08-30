@@ -31,7 +31,7 @@ abstract public class AtomicController<T> : ControllerBase where T : StorableEnt
     public virtual PagedResponse<T> List( [FromQuery] PaginationFilter pagination )
     {
 		return PagedResponse<T>.ToPagedResponse(
-			source: this._repo.FindAll().OrderBy( p => p.ID ),
+			source: this._repo.Query().OrderBy( p => p.ID ),
 			request: Request, 
 			startAt: pagination.StartAt, 
 			maxResults: pagination.MaxResults 

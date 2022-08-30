@@ -40,7 +40,7 @@ public partial class AtomicRepository<T> : IRepository<T> where T : StorableEnti
 		}
 	}
 
-	public IQueryable<T> FindAll()
+	public IQueryable<T> Query()
 	{
 		return _context.Set<T>().AsNoTracking();
 	}

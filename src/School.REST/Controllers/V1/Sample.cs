@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using School.Models;
 using School.BL.Fluent;
+using School.DAL;
 
 namespace School.REST.Controllers.V1;
 
@@ -20,6 +21,13 @@ public class Sample : ControllerBase
 						.Construct();
 
 		return new Response<ILocation>(result);
+    }
+
+	[HttpGet, Route("test")]
+	[ProducesDefaultResponseType( typeof( IEnumerable<Person> ) )]
+   	public virtual IActionResult Test3( [FromServices] IRepository<Person> repo )
+	{
+		return Ok( repo.Query().Select( p => new { p.FirstName, p.LastName } ) );
     }
 
 	[HttpGet, Route("async-test1")]
